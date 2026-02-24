@@ -122,19 +122,42 @@ export default function LoginPage() {
   }
 
   const inputClass =
-    'w-full rounded border border-black/30 bg-white px-3 py-2 text-black placeholder:text-black/50 focus:border-black focus:outline-none focus:ring-1 focus:ring-black';
-  const labelClass = 'mb-1 block text-sm font-medium text-black';
+    'w-full rounded-sm border border-black bg-white px-3 py-2.5 text-black placeholder:text-black/50 focus:border-black focus:outline-none focus:ring-1 focus:ring-black';
+  const labelClass = 'mb-1.5 block text-xs font-medium uppercase tracking-wide text-black';
   const btnPrimary =
-    'w-full rounded border border-black bg-black px-4 py-2 font-medium text-white hover:bg-black/90 disabled:opacity-50';
+    'w-full rounded-sm border border-black bg-black px-4 py-2.5 text-sm font-medium text-white hover:bg-black/90 disabled:opacity-50';
   const btnSecondary =
-    'rounded border border-black/30 bg-white px-4 py-2 text-black hover:bg-black/10';
+    'rounded-sm border border-black bg-white px-4 py-2 text-black hover:bg-black/10';
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white p-4">
-      <div className="w-full max-w-sm space-y-6">
-        <div className="rounded border border-black/20 bg-white p-6">
-          <h1 className="mb-6 text-xl font-semibold text-black">Admin login</h1>
-          <form onSubmit={handleLogin} className="space-y-4">
+    <div className="relative flex min-h-screen flex-col items-center justify-center bg-white px-6 py-16">
+      {/* Fondo muy sutil: logo con opacidad mínima */}
+      <div
+        className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.03]"
+        aria-hidden
+      >
+        <img
+          src="/logo-removebg-preview.png"
+          alt=""
+          className="max-h-[40vh] max-w-[280px] object-contain"
+        />
+      </div>
+
+      <div className="relative z-10 flex w-full max-w-sm flex-col items-center">
+        {/* Logo decorativo encima del formulario */}
+        <div className="mb-12 flex justify-center">
+          <img
+            src="/logo-removebg-preview.png"
+            alt=""
+            className="h-48 w-auto object-contain object-center"
+          />
+        </div>
+
+        <div className="w-full rounded-sm border border-black bg-white px-8 py-10">
+          <h1 className="mb-8 text-center text-lg font-medium tracking-tight text-black">
+            Admin login
+          </h1>
+          <form onSubmit={handleLogin} className="space-y-5">
             <div>
               <label htmlFor="email" className={labelClass}>
                 Email
@@ -174,92 +197,98 @@ export default function LoginPage() {
           </form>
         </div>
 
-        <div className="rounded border border-black/20 bg-white p-6">
-          <button
-            type="button"
-            onClick={() => setBootstrapOpen((o) => !o)}
-            className="flex w-full items-center justify-between text-left text-sm font-medium text-black hover:opacity-80"
-          >
-            Create first admin
-            <span className="text-black/60">{bootstrapOpen ? '▼' : '▶'}</span>
-          </button>
-          {bootstrapOpen && (
-            <form onSubmit={handleBootstrap} className="mt-4 space-y-4 border-t border-black/20 pt-4">
-              <p className="text-xs text-black/70">
-                Solo funciona si no existe ningún admin. Usa el mismo valor que{' '}
-                <code className="rounded bg-black/10 px-1">ADMIN_BOOTSTRAP_SECRET</code> del
-                backend.
-              </p>
-              <div>
-                <label className={labelClass}>Nombre</label>
-                <input
-                  type="text"
-                  value={bootstrapName}
-                  onChange={(e) => setBootstrapName(e.target.value)}
-                  required
-                  maxLength={200}
-                  className={inputClass}
-                  placeholder="Nombre del admin"
-                />
-              </div>
-              <div>
-                <label className={labelClass}>Email</label>
-                <input
-                  type="email"
-                  value={bootstrapEmail}
-                  onChange={(e) => setBootstrapEmail(e.target.value)}
-                  required
-                  className={inputClass}
-                  placeholder="admin@example.com"
-                />
-              </div>
-              <div>
-                <label className={labelClass}>Contraseña (mín. 8)</label>
-                <input
-                  type="password"
-                  value={bootstrapPassword}
-                  onChange={(e) => setBootstrapPassword(e.target.value)}
-                  required
-                  minLength={8}
-                  maxLength={128}
-                  className={inputClass}
-                />
-              </div>
-              <div>
-                <label className={labelClass}>Bootstrap secret</label>
-                <div className="relative">
-                  <input
-                    type={showBootstrapSecret ? 'text' : 'password'}
-                    value={bootstrapSecret}
-                    onChange={(e) => setBootstrapSecret(e.target.value)}
-                    className={`${inputClass} pr-10`}
-                    placeholder="Valor de ADMIN_BOOTSTRAP_SECRET"
-                    autoComplete="off"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowBootstrapSecret((v) => !v)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-black/60 hover:bg-black/10 hover:text-black"
-                    aria-label={showBootstrapSecret ? 'Ocultar secret' : 'Mostrar secret'}
-                  >
-                    {showBootstrapSecret ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </button>
-                </div>
-              </div>
-              {bootstrapError && (
-                <p className="text-sm text-black/80" role="alert">
-                  {bootstrapError}
+        {/* Create first admin: oculto visualmente, código intacto */}
+        <div
+          className="absolute -z-10 h-0 w-0 overflow-hidden opacity-0"
+          aria-hidden
+        >
+          <div className="rounded border border-black/20 bg-white p-6">
+            <button
+              type="button"
+              onClick={() => setBootstrapOpen((o) => !o)}
+              className="flex w-full items-center justify-between text-left text-sm font-medium text-black hover:opacity-80"
+            >
+              Create first admin
+              <span className="text-black/60">{bootstrapOpen ? '▼' : '▶'}</span>
+            </button>
+            {bootstrapOpen && (
+              <form onSubmit={handleBootstrap} className="mt-4 space-y-4 border-t border-black/20 pt-4">
+                <p className="text-xs text-black/70">
+                  Solo funciona si no existe ningún admin. Usa el mismo valor que{' '}
+                  <code className="rounded bg-black/10 px-1">ADMIN_BOOTSTRAP_SECRET</code> del
+                  backend.
                 </p>
-              )}
-              <button type="submit" disabled={bootstrapLoading} className={btnSecondary}>
-                {bootstrapLoading ? 'Creando…' : 'Crear primer admin'}
-              </button>
-            </form>
-          )}
+                <div>
+                  <label className={labelClass}>Nombre</label>
+                  <input
+                    type="text"
+                    value={bootstrapName}
+                    onChange={(e) => setBootstrapName(e.target.value)}
+                    required
+                    maxLength={200}
+                    className={inputClass}
+                    placeholder="Nombre del admin"
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Email</label>
+                  <input
+                    type="email"
+                    value={bootstrapEmail}
+                    onChange={(e) => setBootstrapEmail(e.target.value)}
+                    required
+                    className={inputClass}
+                    placeholder="admin@example.com"
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Contraseña (mín. 8)</label>
+                  <input
+                    type="password"
+                    value={bootstrapPassword}
+                    onChange={(e) => setBootstrapPassword(e.target.value)}
+                    required
+                    minLength={8}
+                    maxLength={128}
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Bootstrap secret</label>
+                  <div className="relative">
+                    <input
+                      type={showBootstrapSecret ? 'text' : 'password'}
+                      value={bootstrapSecret}
+                      onChange={(e) => setBootstrapSecret(e.target.value)}
+                      className={`${inputClass} pr-10`}
+                      placeholder="Valor de ADMIN_BOOTSTRAP_SECRET"
+                      autoComplete="off"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowBootstrapSecret((v) => !v)}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-black/60 hover:bg-black/10 hover:text-black"
+                      aria-label={showBootstrapSecret ? 'Ocultar secret' : 'Mostrar secret'}
+                    >
+                      {showBootstrapSecret ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+                {bootstrapError && (
+                  <p className="text-sm text-black/80" role="alert">
+                    {bootstrapError}
+                  </p>
+                )}
+                <button type="submit" disabled={bootstrapLoading} className={btnSecondary}>
+                  {bootstrapLoading ? 'Creando…' : 'Crear primer admin'}
+                </button>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </div>
