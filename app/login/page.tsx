@@ -147,7 +147,7 @@ export default function LoginPage() {
         {/* Logo decorativo encima del formulario */}
         <div className="mb-12 flex justify-center">
           <img
-            src="/logo-removebg-preview.png"
+            src="/logo-removebg-preview_nsf.png"
             alt=""
             className="h-48 w-auto object-contain object-center"
           />
