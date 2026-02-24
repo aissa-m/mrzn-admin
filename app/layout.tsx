@@ -5,8 +5,8 @@ export const metadata: Metadata = {
   title: 'Admin',
   description: 'Panel de administración',
   icons: {
-    icon: '/logo-removebg-preview.png',
-    apple: '/logo-removebg-preview.png',
+    icon: '/logo_white_p.png',
+    apple: '/logo_white_p.png',
   },
 };
 
